@@ -1,0 +1,48 @@
+<div class="note-creator shadow-2">
+  <form (ngSubmit)="createPerson()">
+    <label for="title">Name:</label>
+    <input
+      type="text"
+      [(ngModel)]="getPerson().data.name"
+      name="title"
+      class="col-xs-8"
+      placeholder="Fullname"
+      name="title">
+      <label for="title">Title:</label>
+        <input
+          type="text"
+          [(ngModel)]="getPerson().data.title"
+          name="title"
+          class="col-xs-4"
+          placeholder="Title"
+          name="title">
+          <label for="id">ID:</label>
+          <input
+            type="number"
+            [(ngModel)]="getPerson().data.id"
+            name="title"
+            class="col-xs-4"
+            placeholder="ID"
+            name="title">
+          <label for="img">Image:</label>
+          <input 
+            type="text"
+            [(ngModel)]="getPerson().data.img"
+            id="img"
+            name="img"
+            accept="image/*">
+    <div class="actions col-xs-4 row between-xs">
+      <button
+        type="submit"
+        class="btn-light">
+        Done
+      </button>
+      <button
+        (click)="closeCreatorDialog()"
+        type="button"
+        class="btn-danger_">
+        Cancel
+      </button>
+    </div>
+  </form>
+</div>

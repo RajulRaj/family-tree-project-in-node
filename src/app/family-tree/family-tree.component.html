@@ -1,0 +1,63 @@
+<div class="text-xs-center" *ngIf="isLoading">
+  <i class="fa fa-circle-o-notch fa-spin fa-3x"></i>
+</div>
+
+<app-toast [message]="getToastMessage()"></app-toast>
+<div class="container text-xs-center" *ngIf="!isLoading">
+  <button class="btn btn-success" *ngIf="!treeExists" (click)="createRoot()">Specify Patriarch</button>
+  <div class="note-editor shadow-2 col-xs-3" *ngIf="shouldShowCreateRootDialog()">
+    <form (ngSubmit)="addRoot()">
+      <label for="name">Name:</label>
+      <input
+        type="text"
+        [(ngModel)]="getRoot().data.name"
+        name="title"
+        class="col-xs-4"
+        placeholder="Fullname"
+        name="title">
+        <label for="title">Title:</label>
+        <input
+          type="text"
+          [(ngModel)]="getRoot().data.title"
+          name="title"
+          class="col-xs-4"
+          placeholder="Title"
+          name="title">
+          <label for="id">ID:</label>
+          <input
+            type="number"
+            [(ngModel)]="getRoot().data.id"
+            name="title"
+            class="col-xs-4"
+            placeholder="ID"
+            name="title">
+          <label for="img">Image:</label>
+          <input 
+            type="text"
+            [(ngModel)]="getRoot().data.img"
+            id="img"
+            name="img"
+            accept="image/*">
+      <div class="actions col-xs-4 row between-xs">
+        <button
+          type="submit"
+          class="btn-light">
+          Done
+        </button>
+        <button
+          (click)="closeRootCreatorDialog()"
+          type="button"
+          class="btn-danger_">
+          Cancel
+        </button>
+      </div>
+    </form>
+  </div>
+  <div class="tree" *ngIf="getTreeExistence()">
+    <ul>
+      <li>
+        <app-person-node (updateTree)="onUpdateTree($event)" [person]="getTree()?._root"></app-person-node>
+      </li>
+    </ul>
+  </div>
+</div>

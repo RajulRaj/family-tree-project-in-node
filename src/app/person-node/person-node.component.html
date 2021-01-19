@@ -1,0 +1,77 @@
+<div
+  class="person-node shadow-2"
+  (mouseenter)="toggleCheck()"
+  (mouseleave)="toggleCheck()"
+  (click)="onChecked()"
+  >
+  <div class="row">
+    <div class="column">
+    <img src="{{person?.data?.img}}">
+    </div>
+    <div class="column">
+    <h6 *ngIf="!isNodeDeleted"
+        >Name:{{person?.data?.name}}
+    </h6>
+    <h6 *ngIf="!isNodeDeleted"
+        >Title:{{person?.data?.title}}
+    </h6>
+    <h6 *ngIf="!isNodeDeleted"
+        >ID:{{person?.data?.id}}
+    </h6>
+    <h6 *ngIf="!isNodeDeleted"
+        >point:{{person?.data?.point}}
+    </h6>
+  </div>
+  </div>
+  <div>
+    <a class="icon"
+     *ngIf="showCheck"
+     (mouseenter)="toggleChildClick()"
+     (mouseleave)="toggleChildClick()"
+     (click)="toggleCreatingChild()">
+    <i class="fa fa-plus fa-1x text-success"></i>
+    </a>
+    <a class="icon"
+      *ngIf="showCheck"
+      (click)="toggleEditing()"
+      (mouseenter)="toggleChildClick()"
+      (mouseleave)="toggleChildClick()">
+      <i class="fa fa-pencil fa-1x text-info"></i>
+    </a>
+    <a class="icon"
+      *ngIf="showCheck"
+      (click)="deleteNode()"
+      (mouseenter)="toggleChildClick()"
+      (mouseleave)="toggleChildClick()">
+      <i class="fa fa-trash fa-1x text-danger"></i>
+    </a>
+  </div>
+</div>
+<div class="col-xs-3" *ngIf="isEditing">
+  <app-node-editor
+    (done)="onEditorAction($event)"
+    (cancel)="onCancel($event)"
+    [person]="person">
+  </app-node-editor>
+</div>
+<div class="col-xs-3" *ngIf="isCreatingChild">
+  <app-node-creator
+    (done)="onCreatorAction($event)"
+    (cancel)="onCancel($event)"
+    [parent]="person">
+  </app-node-creator>
+</div>
+<ul *ngIf="person?.children && person?.children.length > 0 && showChildren && !isNodeDeleted" >
+  <li *ngFor="let person_ of person?.children" >
+    <app-person-node (updateTree)="onUpdateTree($event)" [person]="person_"></app-person-node>
+  </li>
+</ul>
+<style>
+  img {
+    border: 1px solid #ddd;
+    border-radius: 2px;
+    padding: 2px;
+    width: 70px;
+    height: 80px;
+  }
+  </style>
